@@ -4,17 +4,30 @@ import com.example.booking.model.ServiceItem;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServiceCatalogService {
 
-
-    public List<ServiceItem> getServices() {
-        return List.of(
+    private final List<ServiceItem> services = List.of(
                 new ServiceItem(1, "Haircut (short hair)", 20,50),
                 new ServiceItem(2,"Beard trim", 15, 30),
                 new ServiceItem(3, "Haircut (long hair)", 25,60)
-        );
+    );
+
+    public List<ServiceItem> getServices() {
+        return services;
     }
+
+    public Optional<ServiceItem> getById(long id){
+        for (ServiceItem service : services){
+            if (id == service.getId()){
+                return Optional.of(service);
+            }
+        }
+        return Optional.empty();
+    }
+
+
 
 }
